@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untuk Awak 🖤</title>
+<style>
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: sans-serif;
+}
+.center { text-align: center; position: relative; z-index: 2; }
+#envelope {
+  width: 120px;
+  height: 80px;
+  background: #222;
+  cursor: pointer;
+  border: 1px solid #555;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:40px;
+}
+.card {
+  margin-top: 20px;
+  background: rgba(30,30,30,0.9);
+  padding: 20px;
+  width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+  display:none;
+}
+button {
+  margin-top: 15px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 20px;
+  background: #444;
+  color: white;
+}
+.flower {
+  position: absolute;
+  top: -10px;
+  font-size: 20px;
+  animation: fall linear forwards;
+}
+@keyframes fall {
+  to { transform: translateY(110vh); opacity: 0; }
+}
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  animation: sparkle 2s infinite alternate;
+}
+@keyframes sparkle {
+  from { opacity: 0.2; }
+  to { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<div class="center">
+  <div id="envelope" onclick="openEnvelope()">💌</div>
+  <div class="card" id="card">
+    <p id="text"></p>
+    <button onclick="nextMessage()">Seterusnya</button>
+  </div>
+</div>
+
+<script>
+const messages = [
+  "Hai nigga",
+  "Dalam gelap pun awak tetap nigga.",
+  "Terima kasih sebab jadi nigga.",
+  "Awak memang nigga ✨"
+];
+
+let index = 0;
+
+function openEnvelope() {
+  document.getElementById("envelope").style.display = "none";
+  document.getElementById("card").style.display = "block";
+  typeWriter(messages[index]);
+  index++;
+}
+
+function typeWriter(text) {
+  let i = 0;
+  const textEl = document.getElementById("text");
+  textEl.innerHTML = "";
+  function typing() {
+    if (i < text.length) {
+      textEl.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typing, 50);
+    }
+  }
+  typing();
+}
+
+function nextMessage() {
+  if (index < messages.length) {
+    typeWriter(messages[index]);
+    index++;
+  } else {
+    document.getElementById("text").innerText = "Sudah habis 🖤";
+  }
+}
+
+function createFlower() {
+  const flower = document.createElement("div");
+  flower.classList.add("flower");
+  flower.innerText = "🌸";
+  flower.style.left = Math.random() * 100 + "vw";
+  flower.style.animationDuration = (3 + Math.random() * 5) + "s";
+  document.body.appendChild(flower);
+  setTimeout(() => flower.remove(), 8000);
+}
+setInterval(createFlower, 500);
+
+function createSparkle() {
+  const sparkle = document.createElement("div");
+  sparkle.classList.add("sparkle");
+  sparkle.style.top = Math.random() * 100 + "vh";
+  sparkle.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 2000);
+}
+setInterval(createSparkle, 200);
+</script>
+
+</body>
+</html>
